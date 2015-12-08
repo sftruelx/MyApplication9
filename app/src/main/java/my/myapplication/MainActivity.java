@@ -1,7 +1,6 @@
 package my.myapplication;
 
-import android.content.Context;
-import android.provider.Settings;
+
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
 
@@ -128,9 +130,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            View rootView;
+            int i = getArguments().getInt(ARG_SECTION_NUMBER);
+            if(i==1){
+                rootView = inflater.inflate(R.layout.item_main, container, false);
+                ImageView iv_icon = (ImageView)rootView.findViewById(R.id.item_icon);
+                iv_icon.setImageResource(R.drawable.ic_item);
+                TextView textView = (TextView) rootView.findViewById(R.id.item_title);
+                textView.setText("奶爸精选");
+            }else {
+                rootView = inflater.inflate(R.layout.fragment_main, container, false);
+                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            }
             return rootView;
         }
     }
@@ -155,18 +167,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "标题 1";
+                    return "推荐";
                 case 1:
-                    return "标题 2";
+                    return "分类";
                 case 2:
-                    return "标题 3";
+                    return "直播";
+                case 3:
+                    return "榜单";
+                case 4:
+                    return "主播";
             }
             return null;
         }
