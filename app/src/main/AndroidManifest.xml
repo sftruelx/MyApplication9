@@ -11,7 +11,7 @@
         <uses-permission android:name="android.permission.INTERNET" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label=" 喜马拉雅FM"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

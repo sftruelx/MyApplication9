@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         tabWidth = widthPixels/3;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.logo);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -139,16 +140,31 @@ public class MainActivity extends AppCompatActivity {
                 rootView = inflater.inflate(R.layout.item_main, container, false);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道1") );
-                transaction.add(R.id.item_one,ChannelOneFragment.newInstance() );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道2") );
-                transaction.add(R.id.item_one,ChannelOneFragment.newInstance() );
-//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道3"),"fdag");
-//                transaction.add(R.id.item_one,ChannelOneFragment.newInstance(),"sdf");
-//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4"),"fdag");
-//                transaction.add(R.id.item_one,ChannelOneFragment.newInstance(),"aaa");
-//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道5"),"fdag");
-//                transaction.add(R.id.item_one,ChannelOneFragment.newInstance(),"fbbb");
+                transaction.replace(R.id.section_title1,ItemTitleFragment.newInstance("频道3"));
+                transaction.replace(R.id.section_one,new PhotoListFragment() );
+                transaction.replace(R.id.section_two, ItemTitleFragment.newInstance("频道2"));
+                transaction.replace(R.id.section_three,new ImgListFragment() );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ImgListFragment.newInstance() );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道2") );
+//                transaction.add(R.id.item_one,new ImgListFragment() );
+//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道3") );
+//                transaction.add(R.id.item_one,new ImgListFragment() );
+//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+//                transaction.add(R.id.item_one,new ImgListFragment() );
+//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道5") );
+//                transaction.add(R.id.item_one,new ImgListFragment() );
+//
                 transaction.commit();
 
             }else {
