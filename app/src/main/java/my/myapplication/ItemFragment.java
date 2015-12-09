@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -26,10 +27,7 @@ public class ItemFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.item_main, container, false);
-        ImageView iv = (ImageView) rootView.findViewById(R.id.item_icon);
-        iv.setImageResource(R.drawable.ic_item);
-        TextView textView = (TextView) rootView.findViewById(R.id.item_title);
-        textView.setText("奶爸频道");
+
         return rootView;
 
     }

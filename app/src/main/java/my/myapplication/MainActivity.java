@@ -4,6 +4,7 @@ package my.myapplication;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -129,22 +131,38 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView;
+
             int i = getArguments().getInt(ARG_SECTION_NUMBER);
             if(i==1){
                 rootView = inflater.inflate(R.layout.item_main, container, false);
-                ImageView iv_icon = (ImageView)rootView.findViewById(R.id.item_icon);
-                iv_icon.setImageResource(R.drawable.ic_item);
-                TextView textView = (TextView) rootView.findViewById(R.id.item_title);
-                textView.setText("奶爸精选");
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道1") );
+                transaction.add(R.id.item_one,ChannelOneFragment.newInstance() );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道2") );
+                transaction.add(R.id.item_one,ChannelOneFragment.newInstance() );
+//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道3"),"fdag");
+//                transaction.add(R.id.item_one,ChannelOneFragment.newInstance(),"sdf");
+//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4"),"fdag");
+//                transaction.add(R.id.item_one,ChannelOneFragment.newInstance(),"aaa");
+//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道5"),"fdag");
+//                transaction.add(R.id.item_one,ChannelOneFragment.newInstance(),"fbbb");
+                transaction.commit();
+
             }else {
                 rootView = inflater.inflate(R.layout.fragment_main, container, false);
-                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+                //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+                //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             }
             return rootView;
         }
     }
 
+
+    public void MoreOnClick(View view){
+        Snackbar.make(view, "This is my action"+ view.getTag(), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
