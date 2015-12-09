@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -160,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void MoreOnClick(View view){
+//        mImageLoader.get(url, listener);
+//        ImageLoader.ImageListener listener = ImageLoader.getImageListener(imag/**/eView, android.R.drawable.ic_menu_rotate, android.R.drawable.ic_delete);
         Snackbar.make(view, "This is my action"+ view.getTag(), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
