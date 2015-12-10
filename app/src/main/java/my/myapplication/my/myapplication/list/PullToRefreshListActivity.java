@@ -1,9 +1,13 @@
 package my.myapplication.my.myapplication.list;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import android.app.ListActivity;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +20,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -35,10 +41,9 @@ public final class PullToRefreshListActivity extends AppCompatActivity {
     static final int MENU_DISABLE_SCROLL = 1;
     static final int MENU_SET_MODE = 2;
     static final int MENU_DEMO = 3;
-
-    private LinkedList<String> mListItems;
+    private List<HashMap<String,Object>> mListItems;
     private PullToRefreshListView mPullRefreshListView;
-    private ArrayAdapter<String> mAdapter;
+    private SimpleAdapter simpleAdapter;
 
     /** Called when the activity is first created. */
     @Override
@@ -48,7 +53,7 @@ public final class PullToRefreshListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_refresh_list);
-
+        mPullRefreshListView.setMode(Mode.PULL_FROM_END);
         // Set a listener to be invoked when the list should be refreshed.
         mPullRefreshListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
             @Override
@@ -69,7 +74,7 @@ public final class PullToRefreshListActivity extends AppCompatActivity {
 
             @Override
             public void onLastItemVisible() {
-                Toast.makeText(PullToRefreshListActivity.this, "End of List!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PullToRefreshListActivity.this, "End of List! hi!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -78,10 +83,11 @@ public final class PullToRefreshListActivity extends AppCompatActivity {
         // Need to use the Actual ListView when registering for Context Menu
         registerForContextMenu(actualListView);
 
-        mListItems = new LinkedList<String>();
-        mListItems.addAll(Arrays.asList(mStrings));
+        simpleAdapter=new SimpleAdapter(getBaseContext(), getListData(), R.layout.list_item,
+                new String[]{"pic","text" },
+                new int[]{R.id.list_img,R.id.list_text});
 
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mListItems);
+
 
         /**
          * Add Sound Event Listener
@@ -94,9 +100,34 @@ public final class PullToRefreshListActivity extends AppCompatActivity {
 
         // You can also just use setListAdapter(mAdapter) or
         // mPullRefreshListView.setAdapter(mAdapter)
-        actualListView.setAdapter(mAdapter);
+        actualListView.setAdapter(simpleAdapter);
     }
 
+    public List<HashMap<String,Object>> getListData(){
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+        HashMap<String,Object> map = null;
+        for(int i=0;i<5;i++){
+            map = new HashMap<String, Object>();
+            map.put("pic",R.drawable.img1);
+            map.put("text","this is a test!");
+            list.add(map);
+        }
+        return list;
+    }
+/*    public Bitmap getBitmap(){
+        Bitmap mBitmap = null;
+        try {
+            URL url = new URL(imageUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            InputStream is = conn.getInputStream();
+            mBitmap = BitmapFactory.decodeStream(is);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return mBitmap;
+    }*/
     private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 
         @Override
@@ -111,8 +142,8 @@ public final class PullToRefreshListActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String[] result) {
-            mListItems.addFirst("Added after refresh...");
-            mAdapter.notifyDataSetChanged();
+//            mListItems.addFirst("Added after refresh...");
+            simpleAdapter.notifyDataSetChanged();
 
             // Call onRefreshComplete when the list has been refreshed.
             mPullRefreshListView.onRefreshComplete();
