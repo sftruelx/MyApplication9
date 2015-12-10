@@ -1,6 +1,7 @@
 package my.myapplication;
 
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +27,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import my.myapplication.my.myapplication.list.PullToRefreshExpandableListActivity;
+import my.myapplication.my.myapplication.list.PullToRefreshHorizontalScrollViewActivity;
+import my.myapplication.my.myapplication.list.PullToRefreshListActivity;
+import my.myapplication.my.myapplication.list.PullToRefreshListFragmentActivity;
+import my.myapplication.my.myapplication.list.PullToRefreshListInViewPagerActivity;
+import my.myapplication.my.myapplication.list.PullToRefreshScrollViewActivity;
+import my.myapplication.my.myapplication.list.PullToRefreshViewPagerActivity;
+import my.myapplication.my.myapplication.list.PullToRefreshWebView2Activity;
+import my.myapplication.my.myapplication.list.PullToRefreshWebViewActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,12 +94,24 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        RequestQueue mQueue = Volley.newRequestQueue(getBaseContext());
 
-
+        mQueue.add(stringRequest);
 
     }
 
-
+    StringRequest stringRequest = new StringRequest("http://www.baidu.com",
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("TAG", response);
+                }
+            }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.e("TAG", error.getMessage(), error);
+        }
+    });
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -99,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent;
+            intent = new Intent(this, PullToRefreshListActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -145,26 +177,10 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.section_two, ItemTitleFragment.newInstance("频道2"));
                 transaction.replace(R.id.section_three,new ImgListFragment() );
                 transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,new PhotoListFragment() );
                 transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ImgListFragment.newInstance() );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道2") );
-//                transaction.add(R.id.item_one,new ImgListFragment() );
-//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道3") );
-//                transaction.add(R.id.item_one,new ImgListFragment() );
-//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
-//                transaction.add(R.id.item_one,new ImgListFragment() );
-//                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道5") );
-//                transaction.add(R.id.item_one,new ImgListFragment() );
-//
+
+
                 transaction.commit();
 
             }else {
@@ -180,8 +196,7 @@ public class MainActivity extends AppCompatActivity {
     public void MoreOnClick(View view){
 //        mImageLoader.get(url, listener);
 //        ImageLoader.ImageListener listener = ImageLoader.getImageListener(imag/**/eView, android.R.drawable.ic_menu_rotate, android.R.drawable.ic_delete);
-        Snackbar.make(view, "This is my action"+ view.getTag(), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+
     }
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
