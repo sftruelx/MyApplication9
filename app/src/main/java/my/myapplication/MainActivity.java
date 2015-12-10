@@ -1,12 +1,15 @@
 package my.myapplication;
 
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -16,33 +19,21 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import my.myapplication.my.myapplication.list.PullToRefreshExpandableListActivity;
-import my.myapplication.my.myapplication.list.PullToRefreshHorizontalScrollViewActivity;
-import my.myapplication.my.myapplication.list.PullToRefreshListActivity;
-import my.myapplication.my.myapplication.list.PullToRefreshListFragmentActivity;
-import my.myapplication.my.myapplication.list.PullToRefreshListInViewPagerActivity;
-import my.myapplication.my.myapplication.list.PullToRefreshScrollViewActivity;
-import my.myapplication.my.myapplication.list.PullToRefreshViewPagerActivity;
-import my.myapplication.my.myapplication.list.PullToRefreshWebView2Activity;
-import my.myapplication.my.myapplication.list.PullToRefreshWebViewActivity;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -65,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DisplayMetrics dm = new DisplayMetrics();
@@ -128,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent;
-            intent = new Intent(this, PullToRefreshListActivity.class);
-            startActivity(intent);
+//            Intent intent;
+//            intent = new Intent(this, PullToRefreshListActivity.class);
+//            startActivity(intent);
             return true;
         }
 
@@ -147,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        private RecyclerView mRecyclerView;
+
+        private HomeAdapter myAdapter;
+
+        public  List<Actor> actors = new ArrayList<Actor>();
+
         public PlaceholderFragment() {
         }
 
@@ -154,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance(int sectionNumber ) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -168,22 +167,75 @@ public class MainActivity extends AppCompatActivity {
             View rootView;
 
             int i = getArguments().getInt(ARG_SECTION_NUMBER);
-            if(i==1){
+
+            switch (i){
+                case 1:
+
                 rootView = inflater.inflate(R.layout.item_main, container, false);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.section_title1,ItemTitleFragment.newInstance("频道3"));
-                transaction.replace(R.id.section_one,new PhotoListFragment() );
-                transaction.replace(R.id.section_two, ItemTitleFragment.newInstance("频道2"));
-                transaction.replace(R.id.section_three,new ImgListFragment() );
-                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道1"));
+                transaction.add(R.id.item_one,new PhotoListFragment() );
+                transaction.add(R.id.item_one, ItemTitleFragment.newInstance("频道2"));
+                transaction.add(R.id.item_one,new ImgListFragment() );
+                transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道3") );
                 transaction.add(R.id.item_one,new PhotoListFragment() );
                 transaction.add(R.id.item_one,ItemTitleFragment.newInstance("频道4") );
+                transaction.add(R.id.item_one,new PhotoListFragment() );
 
 
                 transaction.commit();
 
-            }else {
+                    break;
+                case 2:
+                    rootView = inflater.inflate(R.layout.tab_two, container, false);
+
+                    SwipeRefreshLayout mSwipeRefreshWidget = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_widget);
+
+
+//                    mSwipeRefreshWidget.setColorScheme(R.color.color1, R.color.color2,
+//                            R.color.color3, R.color.color4);
+//                    mSwipeRefreshWidget.setOnRefreshListener(this);
+
+                    // 这句话是为了，第一次进入页面的时候显示加载进度条
+//                    mSwipeRefreshWidget.setProgressViewOffset(false, 0, (int) TypedValue
+//                            .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+//                                    .getDisplayMetrics()));
+
+
+
+
+
+
+
+
+
+                    for(int ii=0;ii<10;ii++) {
+                        actors.add(new Actor("朱茵", "img1"));
+                        actors.add(new Actor("朱茵", "img1"));
+                        actors.add(new Actor("朱茵", "img1"));
+                        actors.add(new Actor("朱茵", "img1"));
+                        actors.add(new Actor("朱茵", "img1"));
+                    }
+                    // 拿到RecyclerView
+                    mRecyclerView = (RecyclerView) rootView.findViewById(R.id.id_recyclerview);
+                    // 设置LinearLayoutManager
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+                    // 设置ItemAnimator
+                    mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                    // 设置固定大小
+                    mRecyclerView.setHasFixedSize(true);
+                    mRecyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(),DividerItemDecoration.VERTICAL_LIST));
+                    // 初始化自定义的适配器
+                    myAdapter = new HomeAdapter(rootView.getContext(), actors);
+                    // 为mRecyclerView设置适配器
+                    mRecyclerView.setAdapter(myAdapter);
+
+                    break;
+                case 3:
+                    rootView = inflater.inflate(R.layout.fragment_main, container, false);
+                    break;
+                default :
                 rootView = inflater.inflate(R.layout.fragment_main, container, false);
                 //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
                 //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));

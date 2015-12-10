@@ -20,40 +20,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".my.myapplication.list.PullToRefreshListActivity"
-            android:label="PtR ListView" >
-        </activity>
-        <activity
             android:name=".my.myapplication.list.PullToRefreshListFragmentActivity"
             android:label="PtR ListView Fragment" >
-        </activity>
-        <activity
-            android:name=".my.myapplication.list.PullToRefreshListInViewPagerActivity"
-            android:label="PtR ListView in ViewPager" >
-        </activity>
-        <activity
-            android:name=".my.myapplication.list.PullToRefreshGridActivity"
-            android:label="PtR GridView" >
-        </activity>
-        <activity
-            android:name=".my.myapplication.list.PullToRefreshExpandableListActivity"
-            android:label="PtR ExpandableListView" >
-        </activity>
-        <activity
-            android:name="my.myapplication.list.PullToRefreshWebViewActivity"
-            android:label="PtR WebView" >
-        </activity>
-        <activity
-            android:name=".my.myapplication.list.PullToRefreshScrollViewActivity"
-            android:label="PtR ScrollView" >
-        </activity>
-        <activity
-            android:name=".my.myapplication.list.PullToRefreshHorizontalScrollViewActivity"
-            android:label="PtR HorizontalScrollView" >
-        </activity>
-        <activity
-            android:name=".my.myapplication.list.PullToRefreshViewPagerActivity"
-            android:label="PtR ViewPager" >
         </activity>
         <activity
             android:name=".my.myapplication.list.PullToRefreshWebViewActivity"

@@ -1,21 +1,17 @@
 package my.myapplication;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import my.myapplication.my.myapplication.list.PullToRefreshListActivity;
 
 /**
  * Created by 067231 on 2015/12/9.
