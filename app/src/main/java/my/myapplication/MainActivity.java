@@ -25,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -233,7 +235,26 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 case 3:
-                    rootView = inflater.inflate(R.layout.fragment_main, container, false);
+                    rootView = inflater.inflate(R.layout.tab_three, container, false);
+                    LinearLayout linear = (LinearLayout)rootView.findViewById(R.id.tab3_list);
+                    View photo = inflater.inflate(R.layout.photo_small, container, false);
+                    ImageView iv = (ImageView) photo.findViewById(R.id.photo_pic);
+                    iv.setImageResource(R.drawable.img2);
+                    linear.addView(photo);
+                    View line = inflater.inflate(R.layout.line, container, false);
+                    linear.addView(line);
+                    View photo1 = inflater.inflate(R.layout.photo_small, container, false);
+                    ImageView iv1 = (ImageView) photo1.findViewById(R.id.photo_pic);
+                    iv1.setImageResource(R.drawable.img6);
+                    linear.addView(photo1);
+                    View line1 = inflater.inflate(R.layout.line, container, false);
+                    linear.addView(line1);
+                    View photo2 = inflater.inflate(R.layout.photo_small, container, false);
+                    ImageView iv2 = (ImageView) photo2.findViewById(R.id.photo_pic);
+                    iv2.setImageResource(R.drawable.img9);
+                    linear.addView(photo2);
+                    View line2 = inflater.inflate(R.layout.line, container, false);
+                    linear.addView(line2);
                     break;
                 default :
                 rootView = inflater.inflate(R.layout.fragment_main, container, false);
